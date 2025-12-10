@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = "http://127.0.0.1:8000";
+const API = "https://ai-gym-backend.onrender.com";
+
 
 export const uploadWorkoutImage = async (file) => {
   const fd = new FormData();
