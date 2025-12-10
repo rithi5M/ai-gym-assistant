@@ -1,25 +1,39 @@
-import axios from "axios";
+// frontend/src/api.js
 
-const API = "https://ai-gym-backend.onrender.com";
+const API_BASE = "https://ai-gym-backend-1.onrender.com"; 
+// 👆 if your Render URL is slightly different, paste it here exactly.
 
+/**
+ * Chat with gym buddy
+ */
+export const sendChatMessage = async (message) => {
+  const res = await fetch(`${API_BASE}/chat`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ message }),
+  });
 
-export const uploadWorkoutImage = async (file) => {
-  const fd = new FormData();
-  fd.append("file", file);
-  return (await axios.post(`${API}/workout/analyze`, fd)).data;
+  if (!res.ok) {
+    throw new Error("Failed to send chat message");
+  }
+
+  const data = await res.json();
+  return data; // { reply: "..." }
 };
 
-export const getDietPlan = async (body) =>
-  (await axios.post(`${API}/diet/plan`, body)).data;
+/**
+ * Example habit prediction API (optional, for your Habit tab)
+ * Change the endpoint if your backend uses a different route.
+ */
+export const getHabitPrediction = async () => {
+  const res = await fetch(`${API_BASE}/habit-prediction`);
 
-export const logHabit = async (data) =>
-  (await axios.post(`${API}/habit/log`, data)).data;
+  if (!res.ok) {
+    throw new Error("Failed to get habit prediction");
+  }
 
-export const getHabitSummary = async () =>
-  (await axios.get(`${API}/habit/summary`)).data;
-
-export const getHabitPrediction = async () =>
-  (await axios.get(`${API}/habit/predict`)).data;
-
-export const sendChatMessage = async (msg) =>
-  (await axios.post(`${API}/chat`, { message: msg })).data;
+  const data = await res.json();
+  return data;
+};
