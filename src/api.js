@@ -1,7 +1,7 @@
 // frontend/src/api.js
 
-const API_BASE = "https://ai-gym-backend-1.onrender.com"; 
-// 👆 if your Render URL is slightly different, paste it here exactly.
+// ⬇️ your Render backend URL
+const API_BASE = "https://ai-gym-backend-1.onrender.com";
 
 /**
  * Chat with gym buddy
@@ -24,8 +24,8 @@ export const sendChatMessage = async (message) => {
 };
 
 /**
- * Example habit prediction API (optional, for your Habit tab)
- * Change the endpoint if your backend uses a different route.
+ * Example habit prediction API (optional)
+ * You can remove this if not used.
  */
 export const getHabitPrediction = async () => {
   const res = await fetch(`${API_BASE}/habit-prediction`);
